@@ -2,4 +2,3 @@
 [T][ ] poop
 [E][ ] wash dishes (at: 2pm)
 [D][ ] drink beer (by: 12 Feb 2018, 18:00 PM)
-[T][ ] poop

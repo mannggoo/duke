@@ -42,8 +42,10 @@ public class Parser {
             // When command is 'done'
             try {
                 if (sentence[0].equals("done")) { // Check if the first word is done
-                    int completedTaskIndex = Integer.parseInt(sentence[1]);
-                    reply = taskList.markAsDone(completedTaskIndex);
+                    String taskIndexAsString = sentence[1];
+                    assert isInteger(taskIndexAsString) : "Wrong format. Done command needs an integer index of task.";
+                    int taskIndexAsInteger = Integer.parseInt(sentence[1]);
+                    reply = taskList.markAsDone(taskIndexAsInteger);
                     // If it wasn't marked before, this would print out a notification saying it is now marked.
 
                     // Save new list to storage
@@ -74,7 +76,9 @@ public class Parser {
             // When command is 'delete'
             try {
                 if (sentence[0].equals("delete")) {
-                    int taskIndex = Integer.parseInt(sentence[1]);
+                    String taskIndexAsString = sentence[1];
+                    assert isInteger(sentence[1]) : "Wrong format. Delete command needs an integer index of task";
+                    int taskIndex = Integer.parseInt(taskIndexAsString);
                     Task deletedTask = taskList.deleteTask((taskIndex - 1));
                     reply = ui.showDeletedTask(deletedTask, taskList.numTasks);
 
@@ -222,5 +226,23 @@ public class Parser {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm a");
         String formatted = " " + dtf.format(actualDateTime);
         return formatted;
+    }
+
+    /**
+     * Determines if a string is an integer.
+     * @param ss to check if it is an integer.
+     * @return true or false
+     */
+    private boolean isInteger(String ss) {
+        try {
+            Integer.parseInt(ss);
+        } catch (NumberFormatException e) {
+            return false;
+        } catch (NullPointerException e) {
+            return false;
+        }
+
+        // Only reaches here if input string is an integer and no exceptions are thrown.
+        return true;
     }
 }

@@ -13,6 +13,7 @@ public class Duke {
      * Create a new Duke with access to duke.txt file.
      */
     public Duke() {
+        //assert false: "Printed";
         String filePath = "duke.txt";
         ui = new Ui();
         storage = new Storage(filePath);
